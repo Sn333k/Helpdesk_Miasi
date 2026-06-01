@@ -27,3 +27,12 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+
+target/
+
+*.tmp
+*.log
+
+*.zip
+*.7z
