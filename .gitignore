@@ -30,6 +30,7 @@ bin/
 
 
 target/
+*.db
 
 *.tmp
 *.log
