@@ -1,9 +1,9 @@
 package com.miasi.helpdesk.infrastructure.inbound;
 
+import com.miasi.helpdesk.application.domain.model.TicketID;
 import com.miasi.helpdesk.application.ports.inbound.AssignTicketUseCase;
 import com.miasi.helpdesk.application.ports.inbound.CreateTicketUseCase;
 import com.miasi.helpdesk.application.ports.inbound.ResolveTicketUseCase;
-import com.miasi.helpdesk.domain.model.TicketID;
 import io.javalin.apibuilder.ApiBuilder;
 import io.javalin.http.Context;
 

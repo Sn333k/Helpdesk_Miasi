@@ -1,6 +1,6 @@
 package com.miasi.helpdesk.infrastructure.outbound;
 
-import com.miasi.helpdesk.domain.model.Comment;
+import com.miasi.helpdesk.application.domain.model.Comment;
 import jakarta.persistence.Embeddable;
 import java.time.Instant;
 

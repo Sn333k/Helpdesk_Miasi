@@ -1,9 +1,9 @@
 package com.miasi.runner;
 
+import com.miasi.helpdesk.application.domain.model.Category;
+import com.miasi.helpdesk.application.domain.services.StaffAssignmentService;
 import com.miasi.helpdesk.application.services.TicketApplicationService;
 import com.miasi.helpdesk.application.services.TicketFactory;
-import com.miasi.helpdesk.domain.model.Category;
-import com.miasi.helpdesk.domain.services.StaffAssignmentService;
 import com.miasi.helpdesk.infrastructure.inbound.SlaCronJobAdapter;
 import com.miasi.helpdesk.infrastructure.inbound.TicketRestController;
 import com.miasi.helpdesk.infrastructure.outbound.AgentAvailabilityAdapter;

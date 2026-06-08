@@ -4,8 +4,8 @@ import helpdesk.application.application.ports.inbound.*;
 import helpdesk.application.ports.inbound.AssignTicketUseCase;
 import helpdesk.application.ports.inbound.CreateTicketUseCase;
 import helpdesk.application.ports.inbound.EscalateTicketUseCase;
-import helpdesk.domain.model.RequesterID;
-import helpdesk.domain.model.TicketID;
+import helpdesk.application.domain.model.RequesterID;
+import helpdesk.application.domain.model.TicketID;
 import users.domain.services.*;
 
 public class TicketApplicationService implements AssignTicketUseCase, EscalateTicketUseCase, CreateTicketUseCase {

@@ -1,8 +1,8 @@
 package com.miasi.helpdesk.infrastructure.outbound;
 
+import com.miasi.helpdesk.application.domain.model.AgentSnapshot;
+import com.miasi.helpdesk.application.domain.model.Category;
 import com.miasi.helpdesk.application.ports.outbound.IAgentAvailabilityProvider;
-import com.miasi.helpdesk.domain.model.AgentSnapshot;
-import com.miasi.helpdesk.domain.model.Category;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;

@@ -1,7 +1,7 @@
 package helpdesk.application.ports.inbound;
 
-import helpdesk.domain.model.RequesterID;
-import helpdesk.domain.model.TicketID;
+import helpdesk.application.domain.model.RequesterID;
+import helpdesk.application.domain.model.TicketID;
 
 public interface CreateTicketUseCase {
 

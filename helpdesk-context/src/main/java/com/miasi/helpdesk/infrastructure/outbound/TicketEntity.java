@@ -1,6 +1,6 @@
 package com.miasi.helpdesk.infrastructure.outbound;
 
-import com.miasi.helpdesk.domain.model.*;
+import com.miasi.helpdesk.application.domain.model.*;
 import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.ArrayList;

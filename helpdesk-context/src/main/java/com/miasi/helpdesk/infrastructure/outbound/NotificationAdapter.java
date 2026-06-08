@@ -1,7 +1,7 @@
 package com.miasi.helpdesk.infrastructure.outbound;
 
+import com.miasi.helpdesk.application.domain.events.DomainEvent;
 import com.miasi.helpdesk.application.ports.outbound.INotificationSender;
-import com.miasi.helpdesk.domain.events.DomainEvent;
 
 public class NotificationAdapter implements INotificationSender {
 

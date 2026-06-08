@@ -1,8 +1,8 @@
 package com.miasi.helpdesk.infrastructure.inbound;
 
+import com.miasi.helpdesk.application.domain.model.Ticket;
 import com.miasi.helpdesk.application.ports.inbound.EscalateTicketUseCase;
 import com.miasi.helpdesk.application.ports.outbound.ITicketRepository;
-import com.miasi.helpdesk.domain.model.Ticket;
 import java.time.Instant;
 import java.util.List;
 

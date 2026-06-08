@@ -1,7 +1,7 @@
 package com.miasi.helpdesk.application.ports.outbound;
 
-import com.miasi.helpdesk.domain.model.Ticket;
-import com.miasi.helpdesk.domain.model.TicketID;
+import com.miasi.helpdesk.application.domain.model.Ticket;
+import com.miasi.helpdesk.application.domain.model.TicketID;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;

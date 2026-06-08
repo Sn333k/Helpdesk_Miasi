@@ -1,6 +1,6 @@
 package com.miasi.helpdesk.application.services;
 
-import com.miasi.helpdesk.domain.model.*;
+import com.miasi.helpdesk.application.domain.model.*;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 

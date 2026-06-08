@@ -1,5 +1,7 @@
 package com.miasi.helpdesk.application.services;
 
+import com.miasi.helpdesk.application.domain.model.*;
+import com.miasi.helpdesk.application.domain.services.StaffAssignmentService;
 import com.miasi.helpdesk.application.ports.inbound.AssignTicketUseCase;
 import com.miasi.helpdesk.application.ports.inbound.CreateTicketUseCase;
 import com.miasi.helpdesk.application.ports.inbound.EscalateTicketUseCase;
@@ -7,8 +9,6 @@ import com.miasi.helpdesk.application.ports.inbound.ResolveTicketUseCase;
 import com.miasi.helpdesk.application.ports.outbound.IAgentAvailabilityProvider;
 import com.miasi.helpdesk.application.ports.outbound.INotificationSender;
 import com.miasi.helpdesk.application.ports.outbound.ITicketRepository;
-import com.miasi.helpdesk.domain.model.*;
-import com.miasi.helpdesk.domain.services.StaffAssignmentService;
 import java.util.List;
 
 public class TicketApplicationService
