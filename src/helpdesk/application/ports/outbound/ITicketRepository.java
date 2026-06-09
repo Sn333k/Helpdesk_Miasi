@@ -1,7 +1,7 @@
 package helpdesk.application.ports.outbound;
 
-import helpdesk.domain.model.Ticket;
-import helpdesk.domain.model.TicketID;
+import helpdesk.application.domain.model.Ticket;
+import helpdesk.application.domain.model.TicketID;
 
 public interface ITicketRepository {
 

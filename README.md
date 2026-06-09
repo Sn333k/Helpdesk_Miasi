@@ -12,7 +12,9 @@ Each module has its own `src/main/resources/application.properties`. The runner 
 
 ## Handy commands
 ```bash
-mvn clean compile
-mvn -pl app-runner -am exec:java  ## run the app
-mvn -pl app-runner -am package
+mvn spotless:check  ## formatter, use :apply if needed
+
+mvn clean install
+mvn -pl :app-runner exec:java -Dexec.mainClass="com.miasi.runner.Main"  ## run the app
+mvn -pl :app-runner -am package
 ```

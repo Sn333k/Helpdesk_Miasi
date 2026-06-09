@@ -1,8 +1,8 @@
 package helpdesk.infrastructure.outbound;
 
 import helpdesk.application.ports.outbound.ITicketRepository;
-import helpdesk.domain.model.Ticket;
-import helpdesk.domain.model.TicketID;
+import helpdesk.application.domain.model.Ticket;
+import helpdesk.application.domain.model.TicketID;
 
 public class JpaTicketRepository implements ITicketRepository {
 

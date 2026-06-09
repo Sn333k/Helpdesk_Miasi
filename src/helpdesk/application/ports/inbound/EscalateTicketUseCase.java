@@ -1,6 +1,6 @@
 package helpdesk.application.ports.inbound;
 
-import helpdesk.domain.model.TicketID;
+import helpdesk.application.domain.model.TicketID;
 
 public interface EscalateTicketUseCase {
 
