@@ -66,10 +66,10 @@ class UserApplicationServiceTest {
 
   @Test
   void changeAgentStatus_toSameStatus_shouldThrow() {
-    User user = new User(new EmailAddress("a@b.com")); // starts OFFLINE
+    User user = new User(new EmailAddress("a@b.com")); // starts UNAVAILABLE
     userRepo.save(user);
 
-    assertThatThrownBy(() -> service.changeAgentStatus(user.getId(), AgentStatus.OFFLINE))
+    assertThatThrownBy(() -> service.changeAgentStatus(user.getId(), AgentStatus.UNAVAILABLE))
         .isInstanceOf(IllegalStateException.class);
   }
 
@@ -119,7 +119,7 @@ class UserApplicationServiceTest {
     userRepo.save(available);
 
     User offline = new User(new EmailAddress("off@b.com"));
-    userRepo.save(offline); // stays OFFLINE
+    userRepo.save(offline); // stays UNAVAILABLE
 
     SupportTeam team = new SupportTeam("Backend Team", "BACKEND");
     team.assignAgent(available.getId());

@@ -24,7 +24,7 @@ class UserTest {
     User user = newUser();
 
     assertThat(user.getAccountStatus()).isEqualTo(AccountStatus.ACTIVE);
-    assertThat(user.getAgentStatus()).isEqualTo(AgentStatus.OFFLINE);
+    assertThat(user.getAgentStatus()).isEqualTo(AgentStatus.UNAVAILABLE);
     assertThat(user.getId()).isNotNull();
   }
 
@@ -75,7 +75,7 @@ class UserTest {
     user.deactivate();
 
     assertThat(user.getAccountStatus()).isEqualTo(AccountStatus.INACTIVE);
-    assertThat(user.getAgentStatus()).isEqualTo(AgentStatus.OFFLINE);
+    assertThat(user.getAgentStatus()).isEqualTo(AgentStatus.UNAVAILABLE);
   }
 
   @Test
@@ -127,9 +127,9 @@ class UserTest {
 
   @Test
   void changeAgentStatus_toSameStatus_shouldThrow() {
-    User user = newUser(); // starts OFFLINE
+    User user = newUser(); // starts UNAVAILABLE
 
-    assertThatThrownBy(() -> user.changeAgentStatus(AgentStatus.OFFLINE))
+    assertThatThrownBy(() -> user.changeAgentStatus(AgentStatus.UNAVAILABLE))
         .isInstanceOf(IllegalStateException.class)
         .hasMessageContaining("already");
   }

@@ -27,7 +27,7 @@ public class User {
     this.id = new UserID(UUID.randomUUID().toString());
     this.email = email;
     this.accountStatus = AccountStatus.ACTIVE;
-    this.agentStatus = AgentStatus.OFFLINE;
+    this.agentStatus = AgentStatus.UNAVAILABLE;
     this.domainEvents = new ArrayList<>();
   }
 
@@ -57,14 +57,14 @@ public class User {
 
   /**
    * Deactivates the user account. Invariant: only ACTIVE accounts can be deactivated. Sets agent
-   * status to OFFLINE.
+   * status to UNAVAILABLE.
    */
   public void deactivate() {
     if (accountStatus != AccountStatus.ACTIVE)
       throw new IllegalStateException("Only ACTIVE accounts can be deactivated");
 
     this.accountStatus = AccountStatus.INACTIVE;
-    this.agentStatus = AgentStatus.OFFLINE;
+    this.agentStatus = AgentStatus.UNAVAILABLE;
     domainEvents.add(new UserDeactivated(id, AccountStatus.INACTIVE, Instant.now()));
   }
 

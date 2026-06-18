@@ -3,7 +3,7 @@ package com.miasi.users.domain.model;
 public enum AgentStatus {
   AVAILABLE,
   BUSY,
-  OFFLINE;
+  UNAVAILABLE;
 
   public boolean isAvailable() {
     return this == AVAILABLE;
