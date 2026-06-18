@@ -14,6 +14,13 @@ import com.miasi.helpdesk.infrastructure.inbound.TicketRestController;
 import com.miasi.helpdesk.infrastructure.outbound.AgentAvailabilityAdapter;
 import com.miasi.helpdesk.infrastructure.outbound.JpaTicketRepository;
 import com.miasi.helpdesk.infrastructure.outbound.NotificationAdapter;
+import com.miasi.users.application.services.UserManagementService;
+import com.miasi.users.domain.model.UserNotFoundException;
+import com.miasi.users.infrastructure.events.LoggingEventPublisher;
+import com.miasi.users.infrastructure.persistence.JpaAssigneeRepository;
+import com.miasi.users.infrastructure.persistence.JpaRequesterRepository;
+import com.miasi.users.infrastructure.persistence.JpaSupportTeamRepository;
+import com.miasi.users.infrastructure.rest.UserRestController;
 import io.javalin.Javalin;
 import io.javalin.json.JavalinJackson;
 import jakarta.persistence.EntityManagerFactory;
@@ -68,6 +75,23 @@ public final class Main {
           new TicketRestController(
               ticketService, ticketService, ticketService, ticketService, ticketService);
 
+      JpaRequesterRepository requesterRepo = new JpaRequesterRepository(emf);
+      JpaAssigneeRepository assigneeRepo = new JpaAssigneeRepository(emf);
+      JpaSupportTeamRepository teamRepo = new JpaSupportTeamRepository(emf);
+      LoggingEventPublisher usersEventPublisher = new LoggingEventPublisher();
+      UserManagementService userService =
+          new UserManagementService(requesterRepo, assigneeRepo, teamRepo, usersEventPublisher);
+      UserRestController userController =
+          new UserRestController(
+              userService,
+              userService,
+              userService,
+              userService,
+              userService,
+              userService,
+              userService,
+              userService);
+
       Javalin app =
           Javalin.create(
               config -> {
@@ -81,6 +105,9 @@ public final class Main {
                     TicketNotFoundException.class,
                     (e, ctx) -> ctx.status(404).result(e.getMessage()));
                 config.routes.exception(
+                    UserNotFoundException.class,
+                    (e, ctx) -> ctx.status(404).result(e.getMessage()));
+                config.routes.exception(
                     NoAvailableAgentException.class,
                     (e, ctx) -> ctx.status(503).result("No agents available for this category"));
                 config.routes.exception(
@@ -91,6 +118,7 @@ public final class Main {
                     () -> {
                       io.javalin.apibuilder.ApiBuilder.get("/health", ctx -> ctx.result("OK"));
                       ticketController.configureRoutes();
+                      userController.configureRoutes();
                     });
               });
       app.start(port);
@@ -126,6 +154,9 @@ public final class Main {
     cfg.setProperty("hibernate.show_sql", appProps.getProperty("hibernate.show_sql", "false"));
     cfg.addAnnotatedClass(com.miasi.helpdesk.infrastructure.outbound.TicketEntity.class);
     cfg.addAnnotatedClass(com.miasi.helpdesk.infrastructure.outbound.CommentEmbeddable.class);
+    cfg.addAnnotatedClass(com.miasi.users.infrastructure.persistence.RequesterEntity.class);
+    cfg.addAnnotatedClass(com.miasi.users.infrastructure.persistence.AssigneeEntity.class);
+    cfg.addAnnotatedClass(com.miasi.users.infrastructure.persistence.SupportTeamEntity.class);
     return cfg.buildSessionFactory();
   }
 
