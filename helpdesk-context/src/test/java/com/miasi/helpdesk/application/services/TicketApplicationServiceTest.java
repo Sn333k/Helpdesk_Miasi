@@ -14,6 +14,7 @@ import com.miasi.helpdesk.application.domain.model.RequesterID;
 import com.miasi.helpdesk.application.domain.model.SLA;
 import com.miasi.helpdesk.application.domain.model.Ticket;
 import com.miasi.helpdesk.application.domain.model.TicketID;
+import com.miasi.helpdesk.application.domain.model.TicketNotFoundException;
 import com.miasi.helpdesk.application.domain.model.TicketPriority;
 import com.miasi.helpdesk.application.domain.model.TicketStatus;
 import com.miasi.helpdesk.application.domain.services.NoAvailableAgentException;
@@ -128,7 +129,7 @@ class TicketApplicationServiceTest {
   void assignTicket_notFound_shouldThrow() {
     TicketID missing = new TicketID("does-not-exist");
 
-    assertThatThrownBy(() -> service.execute(missing)).isInstanceOf(IllegalArgumentException.class);
+    assertThatThrownBy(() -> service.execute(missing)).isInstanceOf(TicketNotFoundException.class);
   }
 
   // ─── escalateTicket ───────────────────────────────────────────────────────
@@ -171,8 +172,7 @@ class TicketApplicationServiceTest {
   void escalateTicket_notFound_shouldThrow() {
     TicketID missing = new TicketID("ghost-ticket");
 
-    assertThatThrownBy(() -> service.escalate(missing))
-        .isInstanceOf(IllegalArgumentException.class);
+    assertThatThrownBy(() -> service.escalate(missing)).isInstanceOf(TicketNotFoundException.class);
   }
 
   // ─── resolveTicket ────────────────────────────────────────────────────────
@@ -207,7 +207,7 @@ class TicketApplicationServiceTest {
     TicketID missing = new TicketID("no-such-ticket");
 
     assertThatThrownBy(() -> service.execute(missing, "resolution"))
-        .isInstanceOf(IllegalArgumentException.class);
+        .isInstanceOf(TicketNotFoundException.class);
   }
 
   // ─── Helpers ──────────────────────────────────────────────────────────────

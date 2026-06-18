@@ -5,8 +5,11 @@ import com.miasi.helpdesk.application.ports.inbound.EscalateTicketUseCase;
 import com.miasi.helpdesk.application.ports.outbound.ITicketRepository;
 import java.time.Instant;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class SlaCronJobAdapter {
+
+  private static final Logger LOG = Logger.getLogger(SlaCronJobAdapter.class.getName());
 
   private final ITicketRepository ticketRepository;
   private final EscalateTicketUseCase escalateTicketUseCase;
@@ -19,8 +22,7 @@ public class SlaCronJobAdapter {
 
   public void checkSlaExceeded() {
     List<Ticket> breached = ticketRepository.findAllBreachingSla(Instant.now());
-    System.out.printf(
-        "[SLA-CHECK] %d breached ticket(s) found at %s%n", breached.size(), Instant.now());
+    LOG.info(() -> "SLA check: " + breached.size() + " breached ticket(s)");
     breached.forEach(t -> escalateTicketUseCase.escalate(t.getId()));
   }
 }

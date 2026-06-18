@@ -6,8 +6,11 @@ import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 public class JpaTicketRepository implements ITicketRepository {
+
+  private static final Logger LOG = Logger.getLogger(JpaTicketRepository.class.getName());
 
   private final EntityManagerFactory emf;
 
@@ -17,6 +20,7 @@ public class JpaTicketRepository implements ITicketRepository {
 
   @Override
   public void save(Ticket ticket) {
+    LOG.fine(() -> "Saving ticket: " + ticket.getId().id());
     EntityManager em = emf.createEntityManager();
     try {
       em.getTransaction().begin();
@@ -32,6 +36,7 @@ public class JpaTicketRepository implements ITicketRepository {
 
   @Override
   public Optional<Ticket> findById(TicketID id) {
+    LOG.fine(() -> "Finding ticket by id: " + id.id());
     EntityManager em = emf.createEntityManager();
     try {
       TicketEntity entity = em.find(TicketEntity.class, id.id());
