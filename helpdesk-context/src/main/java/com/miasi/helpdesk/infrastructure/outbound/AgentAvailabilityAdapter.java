@@ -8,8 +8,11 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class AgentAvailabilityAdapter implements IAgentAvailabilityProvider {
+
+  private static final Logger LOG = Logger.getLogger(AgentAvailabilityAdapter.class.getName());
 
   private final HttpClient httpClient;
   private final String usersBaseUrl;
@@ -21,6 +24,7 @@ public class AgentAvailabilityAdapter implements IAgentAvailabilityProvider {
 
   @Override
   public List<AgentSnapshot> getAvailableAgentsForCategory(Category category) {
+    LOG.info(() -> "Fetching agents for category: " + category.name());
     try {
       URI uri =
           URI.create(usersBaseUrl + "/internal/users/agents?specialization=" + category.name());
@@ -29,6 +33,7 @@ public class AgentAvailabilityAdapter implements IAgentAvailabilityProvider {
           httpClient.send(request, HttpResponse.BodyHandlers.ofString());
       return parseAgentSnapshots(response.body());
     } catch (Exception e) {
+      LOG.severe(() -> "Agent fetch failed for " + category.name() + ": " + e.getMessage());
       throw new RuntimeException("Failed to fetch agents for category " + category.name(), e);
     }
   }
