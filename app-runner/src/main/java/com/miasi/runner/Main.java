@@ -1,6 +1,11 @@
 package com.miasi.runner;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.miasi.helpdesk.application.domain.model.Category;
+import com.miasi.helpdesk.application.domain.model.TicketNotFoundException;
+import com.miasi.helpdesk.application.domain.services.NoAvailableAgentException;
 import com.miasi.helpdesk.application.domain.services.StaffAssignmentService;
 import com.miasi.helpdesk.application.services.TicketApplicationService;
 import com.miasi.helpdesk.application.services.TicketFactory;
@@ -60,12 +65,27 @@ public final class Main {
 
       SlaCronJobAdapter slaCronJob = new SlaCronJobAdapter(ticketRepository, ticketService);
       TicketRestController ticketController =
-          new TicketRestController(ticketService, ticketService, ticketService);
+          new TicketRestController(
+              ticketService, ticketService, ticketService, ticketService, ticketService);
 
       Javalin app =
           Javalin.create(
               config -> {
-                config.jsonMapper(new JavalinJackson());
+                ObjectMapper mapper =
+                    new ObjectMapper()
+                        .registerModule(new JavaTimeModule())
+                        .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+                config.jsonMapper(new JavalinJackson(mapper, false));
+
+                config.routes.exception(
+                    TicketNotFoundException.class,
+                    (e, ctx) -> ctx.status(404).result(e.getMessage()));
+                config.routes.exception(
+                    NoAvailableAgentException.class,
+                    (e, ctx) -> ctx.status(503).result("No agents available for this category"));
+                config.routes.exception(
+                    IllegalStateException.class,
+                    (e, ctx) -> ctx.status(409).result(e.getMessage()));
 
                 config.routes.apiBuilder(
                     () -> {
